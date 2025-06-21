@@ -15,4 +15,6 @@ def give_bmi(height: list[int | float], weight: list[int | float]) -> list[int |
         
 
 def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
+    if not all(isinstance(b, (int, float)) for b in bmi):
+        raise AssertionError("bmi should containe only numbers")
     return [b > limit for b in bmi]
