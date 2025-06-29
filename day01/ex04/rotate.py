@@ -3,14 +3,13 @@ import math
 import numpy as np
 
 
-
 def rotate_image(image: any, angle: int) -> any:
     angle_rad = math.radians(angle)
     print(image.shape)
     h, w, c = image.shape
     out = np.zeros_like(image)
-    
-    cx, cy = w //2, h // 2
+
+    cx, cy = w // 2, h // 2
     for y_new in range(h):
         for x_new in range(w):
             # Translate to center
@@ -32,13 +31,16 @@ def rotate_image(image: any, angle: int) -> any:
     return out
 
 
-def zoom_and_rotate(image: any, start_y: int, end_y: int, start_x: int, end_x: int, angle: int) -> list:
+def zoom_and_rotate(image: any, start_y: int, end_y: int, start_x: int,
+                    end_x: int, angle: int) -> list:
     """
     Zooms into a specific region of the image.
     """
     zommed = image[start_y:end_y, start_x:end_x]
     if zommed.size == 0:
-        raise ValueError("The zoomed area is empty. Please check the start and end indices.")
+        msg = ("The zoomed area is empty. Please check the start and end "
+               "indices.")
+        raise ValueError(msg)
     # print("Zoomed shape is:", zommed.shape)
     rotated_image = rotate_image(zommed, angle)
     IMG = Image.fromarray(rotated_image)

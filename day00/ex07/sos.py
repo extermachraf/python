@@ -42,28 +42,29 @@ NESTED_MORSE = {
 
 
 def textToNorse(text: str) -> str:
-    nors_char : list = []
+    nors_char: list = []
     for char in text.upper():
         if char not in NESTED_MORSE:
-            raise ValueError(f"Character '{char}' cannot be translated to Morse code.")
+            msg = f"Character '{char}' cannot be translated to Morse code."
+            raise ValueError(msg)
         nors_char.append(NESTED_MORSE[char])
     return ''.join(nors_char)
 
 
 def parse_args(args: list):
-    if(len(args) != 2):
+    if (len(args) != 2):
         raise AssertionError("the program take only one argument")
 
 
 def main():
-    args : list = sys.argv
+    args: list = sys.argv
     try:
         parse_args(args)
         norse_result = textToNorse(args[1])
         print(norse_result)
     except AssertionError or ValueError as e:
         print(e, file=sys.stderr)
-        
+
 
 if __name__ == "__main__":
     main()
